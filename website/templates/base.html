@@ -1,0 +1,33 @@
+{% load static %}
+{% load basis_tags %}
+
+<!DOCTYPE HTML>
+
+<head>
+    <meta charset="UTF-8">
+    <!-- Главный заголовок -->
+    <title>{{title}}</title>
+    <!-- Импорт статики -->
+    <link type="text/css" href="{% static 'basis/css/styles.css' %}" rel="stylesheet"/>
+</head>
+<body>
+<div style="padding: 0px 330px 0px 270px">
+    <p align="center" style="padding: 5px 0px 30px 0px">
+        <!-- Ссылка на главную страницу -->
+        <a href='{% url "home" %}'>Главная страница</a>
+        <!-- Категории -->
+        {% get_categories category_selected %}
+        <!-- Остальные пункты меню -->
+        {% for m in menu %}
+        <a href="{% url m.name %}">{{m.main_title}}</a>
+        {% endfor %}
+    </p>
+    <!-- Главный заголовок -->
+    <h1 align="center" style="padding: 0px 0px 30px 0px">{{main_title}}</h1>
+    <!-- Блок контент -->
+    {% block content %}{% endblock %}
+    <!-- Блок навигации -->
+    <p align="center" style="padding: 125px 0px 0px 0px">{% block navigation %}{% endblock %}</p>
+    <p align="center">&copy; 2024 Солнечная система</p>
+</div>
+</body>

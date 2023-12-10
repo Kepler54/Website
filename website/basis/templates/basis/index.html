@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+<!-- Посты -->
+{% block content %}
+{% for p in all_posts %}
+{% autoescape off %}
+<!-- Изображение -->
+{% if p.photo %}
+<a href='{{p.get_absolute_url}}'><img align="left" src="{{p.photo.url}}" height="200" hspace="50"></a>
+<!-- Заголовок поста -->
+<h2 align="left">{{p.post_title}}</h2>
+<!-- Текст поста с фильтрами -->
+<p style="padding: 0px 0px 15px 0px">{{p.post_content|linebreaks|truncatewords:25}}</p>
+{% endif %}
+{% endautoescape %}
+<!-- Ссылка на пост -->
+<p align="right" style="padding: 50px 0px 0px 0px"><a href='{{p.get_absolute_url}}'>прочитать...</a></p>
+{% endfor %}
+{% endblock %}
+
+<!-- Блок навигации -->
+{% block navigation %}
+{% if page_obj.has_other_pages %}
+{% if page_obj.has_previous %}
+<a href="?page={{ page_obj.previous_page_number }}">&lt;</a>
+{% endif %}
+
+{% for p in paginator.page_range %}
+{% if page_obj.number == p %}
+<a class="page-num page-num-selected">{{ p }}</a>
+{% elif p >= page_obj.number|add:-2 and p <= page_obj.number|add:2 %}
+<a href="?page={{ p }}">{{ p }}</a>
+{% endif %}
+{% endfor %}
+
+{% if page_obj.has_next %}
+<a href="?page={{ page_obj.next_page_number }}">&gt;</a>
+{% endif %}
+{% endif %}
+{% endblock %}
