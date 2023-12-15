@@ -75,3 +75,7 @@ class ContactPage(TemplateView):
         'form': ContactForm(),
         'menu': get_menu()
     }
+
+
+def page_not_found(request, exception):
+    return HttpResponseNotFound("<h1>Страница не найдена! Ошибка 404.</h1>")
