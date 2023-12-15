@@ -9,12 +9,17 @@
 <a href='{{p.get_absolute_url}}'><img align="left" src="{{p.photo.url}}" height="200" hspace="50"></a>
 <!-- Заголовок поста -->
 <h2 align="left">{{p.post_title}}</h2>
+{% if p.category != None %}
+<p>{{p.category}}</p>
+{% else %}
+<p>Звезда</p>
+{% endif %}
 <!-- Текст поста с фильтрами -->
-<p style="padding: 0px 0px 15px 0px">{{p.post_content|linebreaks|truncatewords:25}}</p>
+<p style="padding: 0px 0px 5px 0px">{{p.post_content|linebreaks|truncatewords:25}}</p>
 {% endif %}
 {% endautoescape %}
 <!-- Ссылка на пост -->
-<p align="right" style="padding: 50px 0px 0px 0px"><a href='{{p.get_absolute_url}}'>прочитать...</a></p>
+<p align="right" style="padding: 5px 0px 0px 0px"><a href='{{p.get_absolute_url}}'>прочитать...</a></p>
 {% endfor %}
 {% endblock %}
 
