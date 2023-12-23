@@ -1,6 +1,6 @@
 from django import forms
 
 
-class ContactForm(forms.Form):
+class AddContactForm(forms.Form):
     email = forms.EmailField(max_length=255, label="Почта")
-    message = forms.CharField(widget=forms.Textarea(), label="Сообщение")
+    message = forms.CharField(widget=forms.Textarea(attrs={'cols': 75, 'rows': 10}), label="Сообщение")

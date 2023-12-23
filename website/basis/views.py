@@ -1,8 +1,9 @@
 from .models import Basis
-from .forms import ContactForm
+from .forms import AddContactForm
+from django.urls import reverse_lazy
 from django.http import HttpResponseNotFound
 from django.shortcuts import get_object_or_404
-from django.views.generic import TemplateView, ListView, DetailView
+from django.views.generic import TemplateView, ListView, DetailView, FormView
 
 
 def get_menu():
@@ -17,7 +18,6 @@ class HomePage(ListView):
     extra_context = {
         'title': 'Главная страница',
         'main_title': 'Солнечная система',
-        'menu': get_menu()
     }
 
     def get_queryset(self):
@@ -35,7 +35,6 @@ class CategoryPage(ListView):
         category = context['all_posts'][0].category
         context['title'] = category.name
         context['main_title'] = category.name
-        context['menu'] = get_menu()
         context['category_selected'] = category.pk
         return context
 
@@ -51,7 +50,6 @@ class PostPage(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = context['post'].post_title
-        context['menu'] = get_menu()
         return context
 
     def get_object(self, queryset=None):
@@ -63,18 +61,21 @@ class AboutPage(TemplateView):
     extra_context = {
         'title': 'О сайте',
         'main_title': 'Информация о сайте',
-        'menu': get_menu()
     }
 
 
-class ContactPage(TemplateView):
+class ContactPage(FormView):
+    form_class = AddContactForm
     template_name = 'basis/contact.html'
+    success_url = reverse_lazy('home')
     extra_context = {
         'title': 'Связаться с нами',
         'main_title': 'Связаться с нами',
-        'form': ContactForm(),
-        'menu': get_menu()
     }
+
+    # def form_valid(self, form):
+    #     form.save()
+    #     return super().form_valid(form)
 
 
 def page_not_found(request, exception):

@@ -1,0 +1,6 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1 align="center">Добро пожаловать!</h1>
+<p>Вы успешно зарегистрировались на сайте! Для авторизации перейдите по <a href="{% url 'users:login' %}">ссылке</a></p>
+{% endblock %}
