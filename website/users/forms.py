@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth import get_user_model
 from users.context_processors import get_categories
+from django.contrib.auth.forms import AuthenticationForm
 
 
 class AddPostForm(forms.Form):
@@ -14,9 +15,13 @@ class AddPostForm(forms.Form):
     is_published = forms.BooleanField(required=False, initial=True, label="Статус: ")
 
 
-class UserLoginForm(forms.Form):
+class UserLoginForm(AuthenticationForm):
     username = forms.CharField(label="Логин: ", widget=forms.TextInput(attrs={"class": "form-input"}))
     password = forms.CharField(label="Пароль: ", widget=forms.PasswordInput(attrs={"class": "form-input"}))
+
+    class Meta:
+        model = get_user_model()
+        fields = ['username', 'password']
 
 
 class UserRegisterForm(forms.ModelForm):

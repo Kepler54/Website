@@ -1,13 +1,15 @@
-from django.urls import reverse
 from django.shortcuts import render
 from django.views.generic import FormView
 from django.http import HttpResponseRedirect
+from django.urls import reverse, reverse_lazy
 from users.context_processors import get_basis_creation
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth import logout
 from users.forms import UserLoginForm, UserRegisterForm, AddPostForm
+from django.contrib.auth.views import LoginView, LogoutView
 
 
-class AddPost(FormView):
+class AddPost(LoginRequiredMixin, FormView):
     @staticmethod
     def post(request, **kwargs):
         form = AddPostForm(request.POST, request.FILES)
@@ -20,7 +22,7 @@ class AddPost(FormView):
             'main_title': 'Добавление новой статьи',
             'form': form
         }
-        return render(request, 'users/add_post.html', data)
+        return render(request, 'users/add_post.html', context=data)
 
     @staticmethod
     def get(request, **kwargs):
@@ -30,31 +32,21 @@ class AddPost(FormView):
             'main_title': 'Добавление новой статьи',
             'form': form
         }
-        return render(request, 'users/add_post.html', data)
+        return render(request, 'users/add_post.html', context=data)
 
 
-def get_user_login(request):
-    if request.method == 'POST':
-        form = UserLoginForm(request.POST)
-        if form.is_valid():
-            cd = form.cleaned_data
-            user = authenticate(request, username=cd['username'], password=cd['password'])
-            if user and user.is_active:
-                login(request, user)
-                return HttpResponseRedirect(reverse('home'))
-    else:
-        form = UserLoginForm()
-    data = {
+class UserLogin(LoginView):
+    form_class = UserLoginForm
+    template_name = 'users/login.html'
+    extra_context = {
         'title': 'Войти',
         'main_title': 'Авторизация',
-        'form': form
     }
-    return render(request, 'users/login.html', context=data)
 
 
 def get_user_logout(request):
     logout(request)
-    return HttpResponseRedirect(reverse('users:login'))
+    return HttpResponseRedirect(reverse('home'))
 
 
 def get_user_registration(request):
