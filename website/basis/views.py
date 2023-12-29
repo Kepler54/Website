@@ -7,7 +7,7 @@ from django.views.generic import TemplateView, ListView, DetailView, FormView
 
 
 def get_menu():
-    menu = [{'main_title': 'О сайте', 'name': 'about'}, {'main_title': 'Контакты', 'name': 'contact'}]
+    menu = [{'main_title': 'Контакты', 'name': 'contact'}, {'main_title': 'О сайте', 'name': 'about'}]
     return menu
 
 

@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth import get_user_model
 from users.context_processors import get_categories
-from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 
 
 class AddPostForm(forms.Form):
@@ -24,21 +24,15 @@ class UserLoginForm(AuthenticationForm):
         fields = ['username', 'password']
 
 
-class UserRegisterForm(forms.ModelForm):
-    username = forms.CharField(label="Логин: ")
-    email = forms.CharField(label="Электронная почта: ")
-    password = forms.CharField(label="Пароль: ", widget=forms.PasswordInput())
-    password_retry = forms.CharField(label="Повтор пароля: ", widget=forms.PasswordInput())
+class UserRegisterForm(UserCreationForm):
+    username = forms.CharField(label="Логин: ", widget=forms.TextInput(attrs={"class": "form-input"}))
+    email = forms.CharField(label="Электронная почта: ", widget=forms.EmailInput(attrs={"class": "form-input"}))
+    password1 = forms.CharField(label="Пароль: ", widget=forms.PasswordInput())
+    password2 = forms.CharField(label="Повтор пароля: ", widget=forms.PasswordInput())
 
     class Meta:
         model = get_user_model()
-        fields = ['username', 'email', 'password', 'password_retry']
-
-    def clean_password_retry(self):
-        cd = self.cleaned_data
-        if cd['password'] != cd['password_retry']:
-            raise forms.ValidationError('Пароли не совпадают!')
-        return cd['password']
+        fields = ['username', 'email', 'password1', 'password2']
 
     def clean_email(self):
         email = self.cleaned_data['email']

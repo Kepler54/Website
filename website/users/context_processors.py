@@ -12,3 +12,7 @@ def get_categories():
 
 def get_basis_creation(**kwargs):
     return Basis.objects.create(**kwargs)
+
+
+def get_basis_model():
+    return Basis
