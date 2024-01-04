@@ -10,9 +10,10 @@
     <p align="center">{% include 'basis/inclusions/image_icon.html' %}</p>
     {% endif %}
     <!-- Текст поста с фильтром -->
-    <br>{{post.post_content|linebreaks}}<br>
+    <br><br>{{post.post_content|linebreaks}}<br><br>
     <!-- Опции -->
     <p align="center"><a href="{% url 'users:edit' post.slug %}">Редактировать статью</a></p>
     <p align="center"><a href="{% url 'users:delete' post.slug %}">Удалить статью</a></p>
 </div>
+
 {% endblock %}
