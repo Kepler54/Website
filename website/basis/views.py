@@ -27,7 +27,6 @@ class HomePage(ListView):
 class CategoryPage(ListView):
     template_name = 'basis/index.html'
     context_object_name = 'all_posts'
-    paginate_by = 4
     allow_empty = False
 
     def get_context_data(self, *, object_list=None, **kwargs):
@@ -76,6 +75,22 @@ class ContactPage(FormView):
     # def form_valid(self, form):
     #     form.save()
     #     return super().form_valid(form)
+
+
+class TermsPage(TemplateView):
+    template_name = 'basis/terms.html'
+    extra_context = {
+        'title': 'Пользовательское соглашение',
+        'main_title': 'Пользовательское соглашение',
+    }
+
+
+class PrivacyPage(TemplateView):
+    template_name = 'basis/privacy.html'
+    extra_context = {
+        'title': 'Политика конфиденциальности',
+        'main_title': 'Политика конфиденциальности',
+    }
 
 
 def page_not_found(request, exception):

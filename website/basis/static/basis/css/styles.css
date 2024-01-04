@@ -1,59 +1,36 @@
-html, body {
-font-family: 'DejaVu Sans Light';
-margin: 0;
-padding: 0;
-height: 100%;
-width: 100%;
-background: #080a0d;
-}
+@import url('head.css');
+@import url('body.css');
+@import url('footer.css');
+@import url('buttons.css');
 
-h1 {
+html, body {
+height: 100%;
+margin: 0 auto;
+font-family: 'DejaVu Sans Light', 'Tahoma';
+background: #192131;
 color: #D6D6D6;
 }
 h2 {
-color: #E3E3E3;
+color: #D6D6D6;
 }
-p {
-color: #E3E3E3;
-}
-
 a {
-color: #009dff;
+color: #2594ff;
 text-decoration: none;
 }
 a:hover {
-color: #3e8ec2;
+color: #1575bf;
 }
-
-#head-block {
-display: inline-block;
-width: 99%;
-height: 10%;
-}
-#categories-block {
-background: #0c111d;
-display: flex;
-padding: 1% 1% 1% 30%;
-}
-#content-block {
-background: #0a0e17;
-padding: 1% 12% 2% 12%;
+a:active {
+color: #115e99;
 }
 #post-block {
-padding: 0% 6% 0% 6%;
+padding: 0px 15px 15px 0px;
 }
-#breadcrumbs-block {
-padding: 1% 1% 1% 1%;
+div.about-block {
+padding-top: 300px;
+text-align: center;
 }
-#shining {
-animation: animate 5s linear infinite;
-text-shadow: 0 0 50px #0072ff, 0 0 100px #0072ff, 0 0 150px #0072ff, 0 0 200px #0072ff;
-}
-@keyframes animate {
-  from {
-    filter: hue-rotate(0deg);
-  }
-  to {
-    filter: hue-rotate(360deg);
-  }
+div.about-text {
+padding-top: 50px;
+text-align: center;
 }
