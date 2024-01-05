@@ -7,7 +7,7 @@ from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 class AddPostForm(forms.Form):
     post_title = forms.CharField(max_length=40, label="Заголовок: ")
     post_content = forms.CharField(widget=forms.Textarea(
-        attrs={'cols': 75, 'rows': 10}), required=False, label="Текст статьи: "
+        attrs={'cols': 100, 'rows': 25}), required=False, label="Текст статьи: "
     )
     photo = forms.ImageField(required=False, label="Фото: ")
     slug = forms.CharField(max_length=255, label="Слаг: ")
@@ -26,7 +26,7 @@ class UserLoginForm(AuthenticationForm):
 
 class UserRegisterForm(UserCreationForm):
     username = forms.CharField(label="Логин: ", widget=forms.TextInput(attrs={"class": "form-input"}))
-    email = forms.CharField(label="Электронная почта: ", widget=forms.EmailInput(attrs={"class": "form-input"}))
+    email = forms.CharField(label="Почта: ", widget=forms.EmailInput(attrs={"class": "form-input"}))
     password1 = forms.CharField(label="Пароль: ", widget=forms.PasswordInput())
     password2 = forms.CharField(label="Повтор пароля: ", widget=forms.PasswordInput())
 

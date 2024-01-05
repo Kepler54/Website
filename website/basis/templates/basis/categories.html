@@ -1,7 +1,9 @@
 {% for c in categories %}
 {% if c.id == category_selected %}
-<br><ul><a class="selected">{{c.name}}</a></ul>
+<br>
+<ul><a class="selected">{{c.name}}</a></ul>
 {% else %}
-<br><ul><a href="{{c.get_absolute_url}}">{{c.name}}</a></ul>
+<br>
+<ul><a href="{{c.get_absolute_url}}">{{c.name}}</a></ul>
 {% endif %}
 {% endfor %}

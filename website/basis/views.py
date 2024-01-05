@@ -16,7 +16,7 @@ class HomePage(ListView):
     context_object_name = 'all_posts'
     paginate_by = 3
     extra_context = {
-        'title': 'Главная страница',
+        'title': 'Космос',
         'main_title': 'Солнечная система',
     }
 
@@ -72,16 +72,12 @@ class ContactPage(FormView):
         'main_title': 'Связаться с нами',
     }
 
-    # def form_valid(self, form):
-    #     form.save()
-    #     return super().form_valid(form)
-
 
 class TermsPage(TemplateView):
     template_name = 'basis/terms.html'
     extra_context = {
         'title': 'Пользовательское соглашение',
-        'main_title': 'Пользовательское соглашение',
+        'main_title': 'Соглашение...',
     }
 
 
@@ -89,7 +85,7 @@ class PrivacyPage(TemplateView):
     template_name = 'basis/privacy.html'
     extra_context = {
         'title': 'Политика конфиденциальности',
-        'main_title': 'Политика конфиденциальности',
+        'main_title': 'Политика...',
     }
 
 

@@ -1,52 +1,59 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<div class="content-container">
+    <!-- Посты -->
+    {% for p in all_posts %}
+    {% autoescape off %}
 
-<!-- Посты -->
-{% for p in all_posts %}
-{% autoescape off %}
+    <!-- Изображение -->
+    {% if p.photo %}
+    <a href='{{p.get_absolute_url}}'><img align="left" src="{{p.photo.url}}" height="165" hspace="20" alt="{{p}}"></a>
+    {% else %}
+    <a href='{{p.get_absolute_url}}'>{% include 'basis/inclusions/image_icon.html' %}</a>
+    {% endif %}
 
-<!-- Изображение -->
-{% if p.photo %}
-<a href='{{p.get_absolute_url}}'><img align="left" src="{{p.photo.url}}" height="175" hspace="30" alt="{{p}}"></a>
-{% else %}
-<a href='{{p.get_absolute_url}}'>{% include 'basis/inclusions/image_icon.html' %}</a>
-{% endif %}
+    <!-- Заголовок поста -->
+    <p>{{p.post_title}}</p>
+    {% if p.category != None %}
+    <p>{{p.category}}</p>
+    {% else %}
+    <p>Звезда</p>
+    {% endif %}
 
-<!-- Заголовок поста -->
-<p>{{p.post_title}}</p>
-{% if p.category != None %}
-<p>{{p.category}}</p>
-{% else %}
-<p>Звезда</p>
-{% endif %}
+    <!-- Текст поста с фильтрами -->
+    <p>{{p.post_content|linebreaks|truncatewords:34}}</p>
+    {% endautoescape %}
 
-<!-- Текст поста с фильтрами -->
-<br><p>{{p.post_content|linebreaks|truncatewords:25}}</p>
-{% endautoescape %}
-<!-- Ссылка на пост -->
-<p align="right"><a href='{{p.get_absolute_url}}'>{% include 'basis/inclusions/eyeglasses.html' %}</a></p>
-{% endfor %}
+    <!-- Ссылка на пост -->
+    <p align="right">
+        <a href='{{p.get_absolute_url}}'>{% include 'basis/inclusions/eyeglasses_icon.html' %}
+            <hr class="line">
+        </a>
+    </p>
+    {% endfor %}
+</div>
 {% endblock %}
 
 <!-- Блок навигации -->
 {% block navigation %}
-{% if page_obj.has_other_pages %}
-{% if page_obj.has_previous %}
-<a href="?page={{ page_obj.previous_page_number }}">{% include 'basis/inclusions/caret_left.html' %}&nbsp;</a>
-{% endif %}
+<div class="navigation">
+    {% if page_obj.has_other_pages %}
+    {% if page_obj.has_previous %}
+    <a href="?page={{ page_obj.previous_page_number }}">{% include 'basis/inclusions/caret_left_icon.html' %}&nbsp;</a>
+    {% endif %}
 
-{% for p in paginator.page_range %}
-{% if page_obj.number == p %}
-<a>{{ p }}</a>
-{% elif p >= page_obj.number|add:-2 and p <= page_obj.number|add:2 %}
-<a href="?page={{ p }}">{{ p }}</a>
-{% endif %}
-{% endfor %}
+    {% for p in paginator.page_range %}
+    {% if page_obj.number == p %}
+    <a>{{ p }}</a>
+    {% elif p >= page_obj.number|add:-2 and p <= page_obj.number|add:2 %}
+    <a href="?page={{ p }}">{{ p }}</a>
+    {% endif %}
+    {% endfor %}
 
-{% if page_obj.has_next %}
-<a href="?page={{ page_obj.next_page_number }}">&nbsp;{% include 'basis/inclusions/caret_right.html' %}</a>
-{% endif %}
-{% endif %}
-
+    {% if page_obj.has_next %}
+    <a href="?page={{ page_obj.next_page_number }}">&nbsp;{% include 'basis/inclusions/caret_right_icon.html' %}</a>
+    {% endif %}
+    {% endif %}
+</div>
 {% endblock %}

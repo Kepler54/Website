@@ -3,7 +3,7 @@ height: 115px;
 width: 100%;
 padding: 0px 0px 0px 100px;
 position: fixed;
-background: rgba(9, 16, 29, 0.90);
+background: rgba(9, 16, 29, 0.95);
 }
 div.icon {
 display: inline-block;
@@ -12,15 +12,14 @@ height: 115px;
 }
 div.main-menu {
 display: inline-block;
-height: 85px;
-padding: 25px 200px 0px 0px;
+padding: 45px 50px 0px 0px;
 list-style: none;
 font-size: 16px;
 }
 div.authentication {
 display: inline-block;
+padding: 40px 200px 0px 0px;
 list-style: none;
-background: rgba(43, 40, 51, 0.75);
 }
 #shining {
 animation: animate 5s linear infinite;

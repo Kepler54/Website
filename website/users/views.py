@@ -67,7 +67,7 @@ class UserLogin(LoginView):
 
 class UserRegistration(CreateView):
     form_class = UserRegisterForm
-    template_name = 'users/register.html'
+    template_name = 'users/registration.html'
     extra_context = {
         'title': 'Регистрация',
         'main_title': 'Регистрация'

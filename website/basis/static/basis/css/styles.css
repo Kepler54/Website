@@ -8,9 +8,11 @@ height: 100%;
 margin: 0 auto;
 font-family: 'DejaVu Sans Light', 'Tahoma';
 background: #192131;
-color: #D6D6D6;
 }
 h2 {
+color: #D6D6D6;
+}
+p {
 color: #D6D6D6;
 }
 a {
@@ -23,9 +25,7 @@ color: #1575bf;
 a:active {
 color: #115e99;
 }
-#post-block {
-padding: 0px 15px 15px 0px;
-}
+
 div.about-block {
 padding-top: 300px;
 text-align: center;

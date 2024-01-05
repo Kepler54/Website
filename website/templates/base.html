@@ -4,59 +4,69 @@
 {% load basis_tags %}
 <head>
     <meta charset="UTF-8">
+
     <!-- Импорт статики -->
     <link type="text/css" rel="stylesheet" href="{% static 'basis/css/styles.css' %}">
     <link rel="icon" href="{% static 'basis/images/rocket-takeoff.svg' %}">
+
     <!-- Заголовок вкладки -->
     <title>{{title}}</title>
 </head>
 <body>
+
 <!-- Иконка главной страницы и авторизация -->
 <div id="head-block">
     <div style="float:left" class="icon" id="shining">
         <a href="{% url 'home' %}"><h1>{% include 'basis/inclusions/main_icon.html' %}Космос</h1></a>
     </div>
-    <div class="main-menu" style="float:right">
-        <ul>
+    <div class="menu" style="float:right">
+        <div class="main-menu" style="float:left">
             <a href="{% url 'home' %}">&nbsp;Главная страница</a>
             <a href="{% url 'users:add_post' %}">&nbsp;Добавить статью</a>
             {% for m in menu %}
             <a href="{% url m.name %}">&nbsp;{{m.main_title}}</a>
             {% endfor %}
+        </div>
+        <div class="authentication" style="float:right">
             {% if user.is_authenticated %}
-            &nbsp;{{user.username}}
+            <a href="{% url 'home' %}">{{user.username}}&nbsp;</a>
             <a href="{% url 'users:logout' %}">
-                <button type="button" class="button-entry">Выйти</button>
+                <button type="button" class="button-main">Выйти</button>
             </a>
             {% else %}
             <a href="{% url 'users:login' %}">
-                <button type="button" class="button-entry">Войти</button>
+                <button type="button" class="button-main">Войти</button>
             </a>
-            <a href="{% url 'users:register' %}">
-                <button type="button" class="button-registration">Регистрация</button>
+            <a href="{% url 'users:registration' %}">
+                <button type="button" class="button-main">Регистрация</button>
             </a>
             {% endif %}
-        </ul>
+        </div>
     </div>
 </div>
+
+<!-- Категории и контент -->
 <div id="body-block">
     <div style="float:left" class="categories">
-        <ul><h2>{{main_title}}</h2></ul>
-        <ul><h2>{{post.post_title}}</h2></ul>
+        <ul><h2>{{main_title|linebreaks}}</h2></ul>
+        <ul><h2>{{post.post_title|linebreaks}}</h2></ul>
+        <hr class="line">
         {% get_categories category_selected %}
     </div>
     <div style="float:right" class="content">
         {% block content %}{% endblock %}
-        <div class="navigation">
-            {% block navigation %}{% endblock %}
-        </div>
+        {% block navigation %}{% endblock %}
     </div>
 </div>
+
 <!-- Хлебные крошки -->
 <div id="footer">
     <p>&copy 2024 Космос</p>
-    <p><a href="{% url 'terms' %}">Пользовательское соглашение</a></p>
-    <p><a href="{% url 'privacy' %}">Политика конфиденциальности</a></p>
+    <p style="font-size: 14px">
+        <a href="{% url 'terms' %}">Пользовательское соглашение</a> |
+        <a href="{% url 'privacy' %}">Политика конфиденциальности</a>
+    </p>
+    <p></p>
 </div>
 </body>
 </html>
