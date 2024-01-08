@@ -1,15 +1,16 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<form method="post">
+<form method="POST">
     {% csrf_token %}
     <input type="hidden" name="next" value="{{next}}">
-    <a>{{form.non_field_errors}}</a>
+    <div class="error-form">{{form.non_field_errors}}</div>
     {% for f in form %}
     <p><label class="label-form" for="{{f.id_for_label}}">{{f.label}}</label>{{f}}</p>
-    {{f.errors}}
+    <div class="error-form">{{f.errors}}</div>
     {% endfor %}
     <br>
     <button type="submit">Войти</button>
+    <p><a href="{% url 'users:password_reset' %}">Забыли пароль?</a></p>
 </form>
 {% endblock %}

@@ -9,6 +9,8 @@
     <div class="error-form">{{f.errors}}</div>
     {% endfor %}
     <br>
-    <button type="submit">Регистрация</button>
+    <button type="submit">Сохранить</button>
 </form>
+<br>
+<p><a href="{% url 'users:password_change' %}">Сменить пароль: </a></p>
 {% endblock %}

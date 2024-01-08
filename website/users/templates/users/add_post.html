@@ -3,11 +3,10 @@
 {% block content %}
 <form action="" method="POST" enctype="multipart/form-data" class="form-label">
     {% csrf_token %}
-    {{form.non_field_errors}}
-    <br>
+    <div class="error-form">{{form.non_field_errors}}</div>
     {% for f in form %}
     <p><label class="label-form" for="{{f.id_for_label}}">{{f.label}}</label>{{f}}</p>
-    {{f.errors}}
+    <div class="error-form">{{f.errors}}</div>
     {% endfor %}
     <br>
     <button type="submit">Отправить</button>

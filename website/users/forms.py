@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth import get_user_model
 from users.context_processors import get_categories
-from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm, PasswordChangeForm
 
 
 class AddPostForm(forms.Form):
@@ -16,8 +16,8 @@ class AddPostForm(forms.Form):
 
 
 class UserLoginForm(AuthenticationForm):
-    username = forms.CharField(label="Логин: ", widget=forms.TextInput(attrs={"class": "form-input"}))
-    password = forms.CharField(label="Пароль: ", widget=forms.PasswordInput(attrs={"class": "form-input"}))
+    username = forms.CharField(label="Логин: ", widget=forms.TextInput())
+    password = forms.CharField(label="Пароль: ", widget=forms.PasswordInput())
 
     class Meta:
         model = get_user_model()
@@ -25,8 +25,8 @@ class UserLoginForm(AuthenticationForm):
 
 
 class UserRegisterForm(UserCreationForm):
-    username = forms.CharField(label="Логин: ", widget=forms.TextInput(attrs={"class": "form-input"}))
-    email = forms.CharField(label="Почта: ", widget=forms.EmailInput(attrs={"class": "form-input"}))
+    username = forms.CharField(label="Логин: ", widget=forms.TextInput())
+    email = forms.CharField(label="Почта: ", widget=forms.EmailInput())
     password1 = forms.CharField(label="Пароль: ", widget=forms.PasswordInput())
     password2 = forms.CharField(label="Повтор пароля: ", widget=forms.PasswordInput())
 
@@ -39,3 +39,18 @@ class UserRegisterForm(UserCreationForm):
         if get_user_model().objects.filter(email=email).exists():
             raise forms.ValidationError("Такой E-mail уже существует!")
         return email
+
+
+class UserProfileForm(forms.ModelForm):
+    username = forms.CharField(label="Изменить логин: ", widget=forms.TextInput())
+    email = forms.CharField(label="Изменить почту: ", widget=forms.EmailInput())
+
+    class Meta:
+        model = get_user_model()
+        fields = ['username', 'email']
+
+
+class UserPasswordChangeForm(PasswordChangeForm):
+    old_password = forms.CharField(label="Текущмй пароль: ", widget=forms.PasswordInput())
+    new_password1 = forms.CharField(label="Новый пароль: ", widget=forms.PasswordInput())
+    new_password2 = forms.CharField(label="Подтверждение пароля: ", widget=forms.PasswordInput())

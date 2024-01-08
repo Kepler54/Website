@@ -29,16 +29,16 @@
         </div>
         <div class="authentication" style="float:right">
             {% if user.is_authenticated %}
-            <a href="{% url 'home' %}">{{user.username}}&nbsp;</a>
+            <a href="{% url 'users:profile' %}">{{user.username}}&nbsp;</a>
             <a href="{% url 'users:logout' %}">
-                <button type="button" class="button-main">Выйти</button>
+                &nbsp;<button type="button" class="button-main">Выйти</button>
             </a>
             {% else %}
             <a href="{% url 'users:login' %}">
                 <button type="button" class="button-main">Войти</button>
             </a>
             <a href="{% url 'users:registration' %}">
-                <button type="button" class="button-main">Регистрация</button>
+                &nbsp;<button type="button" class="button-main">Регистрация</button>
             </a>
             {% endif %}
         </div>
