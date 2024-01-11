@@ -1,8 +1,7 @@
 #head-block {
 height: 115px;
-width: 100%;
+width: auto;
 padding: 0px 0px 0px 100px;
-position: fixed;
 background: rgba(9, 16, 29, 0.95);
 }
 div.icon {

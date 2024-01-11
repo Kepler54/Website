@@ -22,7 +22,9 @@
     <div class="menu" style="float:right">
         <div class="main-menu" style="float:left">
             <a href="{% url 'home' %}">&nbsp;Главная страница</a>
+            {% if perms.users.add_users %}
             <a href="{% url 'users:add_post' %}">&nbsp;Добавить статью</a>
+            {% endif %}
             {% for m in menu %}
             <a href="{% url m.name %}">&nbsp;{{m.main_title}}</a>
             {% endfor %}

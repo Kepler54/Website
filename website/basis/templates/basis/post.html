@@ -1,7 +1,6 @@
 {% extends 'base.html' %}
 
 {% block content %}
-
 <div id="post-block">
     <!-- Изображение поста -->
     {% if post.photo %}
@@ -12,8 +11,11 @@
     <!-- Текст поста с фильтром -->
     <br>{{post.post_content|linebreaks}}<br>
     <!-- Опции -->
+    {% if perms.users.change_users %}
     <p align="center"><a href="{% url 'users:edit' post.slug %}">Редактировать статью</a></p>
+    {% endif %}
+    {% if perms.users.delete_users %}
     <p align="center"><a href="{% url 'users:delete' post.slug %}">Удалить статью</a></p><br>
+    {% endif %}
 </div>
-
 {% endblock %}

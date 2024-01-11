@@ -1,11 +1,14 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div>
-    <form action="" method="post">
-        {% csrf_token %}
-        {{form.as_p}}
-        <button type="submit">Отправить</button>
-    </form>
+<div class="about-block">
+    <a href='mailto:keplerpocket@proton.me' target="_blank">
+        {% include 'basis/inclusions/email_icon.html' %}
+    </a>
+</div>
+<div class="about-text">
+    <a href='mailto:keplerpocket@proton.me' target="_blank">
+        Электронная почта
+    </a>
 </div>
 {% endblock %}

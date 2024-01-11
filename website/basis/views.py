@@ -1,6 +1,4 @@
 from .models import Basis
-from .forms import AddContactForm
-from django.urls import reverse_lazy
 from django.http import HttpResponseNotFound
 from django.shortcuts import get_object_or_404
 from django.views.generic import TemplateView, ListView, DetailView, FormView
@@ -17,7 +15,7 @@ class HomePage(ListView):
     paginate_by = 3
     extra_context = {
         'title': 'Космос',
-        'main_title': 'Солнечная система',
+        'main_title': 'Солнечная система'
     }
 
     def get_queryset(self):
@@ -59,17 +57,15 @@ class AboutPage(TemplateView):
     template_name = 'basis/about.html'
     extra_context = {
         'title': 'О сайте',
-        'main_title': 'Информация о сайте',
+        'main_title': 'Информация о сайте'
     }
 
 
-class ContactPage(FormView):
-    form_class = AddContactForm
+class ContactPage(TemplateView):
     template_name = 'basis/contact.html'
-    success_url = reverse_lazy('home')
     extra_context = {
         'title': 'Связаться с нами',
-        'main_title': 'Связаться с нами',
+        'main_title': 'Связаться с нами'
     }
 
 
@@ -77,7 +73,7 @@ class TermsPage(TemplateView):
     template_name = 'basis/terms.html'
     extra_context = {
         'title': 'Пользовательское соглашение',
-        'main_title': 'Соглашение...',
+        'main_title': 'Соглашение...'
     }
 
 
@@ -85,7 +81,7 @@ class PrivacyPage(TemplateView):
     template_name = 'basis/privacy.html'
     extra_context = {
         'title': 'Политика конфиденциальности',
-        'main_title': 'Политика...',
+        'main_title': 'Политика...'
     }
 
 

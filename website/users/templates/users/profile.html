@@ -1,8 +1,15 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<form method="POST">
+<form method="POST" enctype="multipart/form-data">
     {% csrf_token %}
+
+    {% if user.photo %}
+    <p><img src="{{ user.photo.url }}" height="250" alt="{{user.first_name}}"></p>
+    {% else %}
+    <p>{% include 'basis/inclusions/image_icon.html' %}</p>
+    {% endif %}
+
     <div class="error-form">{{form.non_field_errors}}</div>
     {% for f in form %}
     <p><label class="label-form" for="{{f.id_for_label}}">{{f.label}}</label>{{f}}</p>

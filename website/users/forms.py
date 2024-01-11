@@ -1,3 +1,4 @@
+import datetime
 from django import forms
 from django.contrib.auth import get_user_model
 from users.context_processors import get_categories
@@ -11,7 +12,8 @@ class AddPostForm(forms.Form):
     )
     photo = forms.ImageField(required=False, label="Фото: ")
     slug = forms.CharField(max_length=255, label="Слаг: ")
-    category = forms.ModelChoiceField(get_categories(), label="Категории: ", empty_label="Категория не выбрана")
+    category = forms.ModelChoiceField(get_categories(), required=False, label="Категории: ",
+                                      empty_label="Категория не выбрана")
     is_published = forms.BooleanField(required=False, initial=True, label="Статус: ")
 
 
@@ -44,10 +46,17 @@ class UserRegisterForm(UserCreationForm):
 class UserProfileForm(forms.ModelForm):
     username = forms.CharField(label="Изменить логин: ", widget=forms.TextInput())
     email = forms.CharField(label="Изменить почту: ", widget=forms.EmailInput())
+    this_year = datetime.date.today().year
+    date_birth = forms.DateField(widget=forms.SelectDateWidget(years=tuple(range(this_year - 150, this_year - 5))))
 
     class Meta:
         model = get_user_model()
-        fields = ['username', 'email']
+        fields = ['photo', 'username', 'email', 'date_birth', 'first_name', 'last_name']
+
+        widgets = {
+            'first_name': forms.TextInput(attrs={'class': 'form-input'}),
+            'last_name': forms.TextInput(attrs={'class': 'form-input'})
+        }
 
 
 class UserPasswordChangeForm(PasswordChangeForm):

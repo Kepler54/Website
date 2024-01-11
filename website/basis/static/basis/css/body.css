@@ -1,9 +1,12 @@
 #body-block {
 height: 764px;
 width: auto;
-padding: 145px 100px 30px 100px;
+padding: 30px 100px 30px 100px;
 background: rgba(9, 16, 29, 0.50);
 }
+
+@media screen and (min-width: 1080px) {}
+
 div.categories {
 display: inline-block;
 overflow-x: hidden;

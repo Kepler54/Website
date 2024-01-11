@@ -1,9 +1,10 @@
+from django.contrib.auth.decorators import permission_required
 from django.shortcuts import render
 from django.views.generic import FormView, CreateView, UpdateView, DeleteView
 from django.http import HttpResponseRedirect
 from django.urls import reverse, reverse_lazy
 from users.context_processors import get_basis_creation, get_basis_model
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib.auth import logout, get_user_model
 from users.forms import UserLoginForm, UserRegisterForm, AddPostForm, UserProfileForm, UserPasswordChangeForm
 from django.contrib.auth.views import LoginView, PasswordChangeView, PasswordChangeDoneView, PasswordResetView, \
@@ -26,6 +27,7 @@ class AddPost(LoginRequiredMixin, FormView):
         return render(request, 'users/add_post.html', context=data)
 
     @staticmethod
+    @permission_required(perm='users.add_users', raise_exception=True)
     def get(request, **kwargs):
         form = AddPostForm()
         data = {
@@ -36,24 +38,26 @@ class AddPost(LoginRequiredMixin, FormView):
         return render(request, 'users/add_post.html', context=data)
 
 
-class UpdatePost(LoginRequiredMixin, UpdateView):
+class UpdatePost(PermissionRequiredMixin, LoginRequiredMixin, UpdateView):
     model = get_basis_model()
     fields = ['post_title', 'post_content', 'photo', 'is_published', 'category']
     template_name = 'users/add_post.html'
+    permission_required = 'users.change_users'
     success_url = reverse_lazy('home')
     extra_context = {
         'title': 'Редактирование',
-        'main_title': 'Редактирование статьи',
+        'main_title': 'Редактирование статьи'
     }
 
 
-class DeletePost(LoginRequiredMixin, DeleteView):
+class DeletePost(PermissionRequiredMixin, LoginRequiredMixin, DeleteView):
     model = get_basis_model()
     template_name = 'users/delete.html'
+    permission_required = 'users.delete_users'
     success_url = reverse_lazy('home')
     extra_context = {
         'title': 'Удаление',
-        'main_title': 'Удаление статьи',
+        'main_title': 'Удаление статьи'
     }
 
 
@@ -62,7 +66,7 @@ class UserLogin(LoginView):
     template_name = 'users/login.html'
     extra_context = {
         'title': 'Войти',
-        'main_title': 'Авторизация',
+        'main_title': 'Авторизация'
     }
 
 
@@ -82,7 +86,7 @@ class UserProfile(LoginRequiredMixin, UpdateView):
     template_name = 'users/profile.html'
     extra_context = {
         'title': 'Профиль пользователя',
-        'main_title': 'Профиль пользователя',
+        'main_title': 'Профиль пользователя'
     }
 
     def get_success_url(self):
