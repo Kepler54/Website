@@ -1,38 +1,36 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="content-container">
-    <!-- Посты -->
-    {% for p in all_posts %}
-    {% autoescape off %}
+<!-- Посты -->
+{% for p in all_posts %}
+{% autoescape off %}
 
-    <!-- Изображение -->
-    {% if p.photo %}
-    <a href='{{p.get_absolute_url}}'><img align="left" src="{{p.photo.url}}" height="165" hspace="20" alt="{{p}}"></a>
-    {% else %}
-    <a href='{{p.get_absolute_url}}'>{% include 'basis/inclusions/image_icon.html' %}</a>
-    {% endif %}
+<!-- Изображение -->
+{% if p.photo %}
+<a href='{{p.get_absolute_url}}'><img align="left" src="{{p.photo.url}}" height="165" hspace="20" alt="{{p}}"></a>
+{% else %}
+<a href='{{p.get_absolute_url}}'>{% include 'basis/inclusions/image_icon.html' %}</a>
+{% endif %}
 
-    <!-- Заголовок поста -->
-    <p>{{p.post_title}}</p>
-    {% if p.category != None %}
-    <p>{{p.category}}</p>
-    {% else %}
-    <p>Звезда</p>
-    {% endif %}
+<!-- Заголовок поста -->
+<p>{{p.post_title}}</p>
+{% if p.category != None %}
+<p>{{p.category}}</p>
+{% else %}
+<p>Звезда</p>
+{% endif %}
 
-    <!-- Текст поста с фильтрами -->
-    <p>{{p.post_content|linebreaks|truncatewords:34}}</p>
-    {% endautoescape %}
+<!-- Текст поста с фильтрами -->
+<p>{{p.post_content|linebreaks|truncatewords:34}}</p>
+{% endautoescape %}
 
-    <!-- Ссылка на пост -->
-    <p align="right">
-        <a href='{{p.get_absolute_url}}'>{% include 'basis/inclusions/eyeglasses_icon.html' %}
-            <hr class="line">
-        </a>
-    </p>
-    {% endfor %}
-</div>
+<!-- Ссылка на пост -->
+<p align="right">
+    <a href='{{p.get_absolute_url}}'>{% include 'basis/inclusions/eyeglasses_icon.html' %}
+        <hr class="line">
+    </a>
+</p>
+{% endfor %}
 {% endblock %}
 
 <!-- Блок навигации -->

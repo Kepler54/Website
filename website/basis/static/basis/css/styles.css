@@ -5,9 +5,10 @@
 
 html, body {
 height: 100%;
+width: auto;
 margin: 0 auto;
 font-family: 'DejaVu Sans Light', 'Tahoma';
-background: #192131;
+background: #000000;
 }
 h2 {
 color: #D6D6D6;

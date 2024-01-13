@@ -1,22 +1,21 @@
-#body-block {
-height: 764px;
-width: auto;
-padding: 30px 100px 30px 100px;
-background: rgba(9, 16, 29, 0.50);
-}
-
 @media screen and (min-width: 1080px) {}
-
+#body-container {
+box-sizing: border-box;
+height: 825px;
+min-width: 1920px;
+padding: 30px 130px 30px 130px;
+background: rgba(29, 29, 41, 0.8);
+}
 div.categories {
 display: inline-block;
 overflow-x: hidden;
 overflow-y: auto;
-height: 715px;
-width: 255px;
+height: 700px;
+width: 285px;
 padding: 25px;
 border-radius: 8px;
-box-shadow: 15px 15px 15px rgba(9, 16, 29, 0.95);
-background: rgba(19, 44, 67, 0.30);
+box-shadow: 15px 15px 15px rgba(9, 16, 29, 0.5);
+background: rgba(19, 44, 67, 0.4);
 color: #009be8;
 font-size: 16px;
 }
@@ -24,22 +23,19 @@ div.content {
 display: inline-block;
 overflow-x: hidden;
 overflow-y: auto;
-height: 715px;
-width: 1285px;
+height: 700px;
+width: 1200px;
 padding: 50px 50px 0px 50px;
 border-radius: 8px;
-box-shadow: 15px 15px 15px rgba(9, 16, 29, 0.95);
-background: rgba(19, 44, 67, 0.30);
-}
-div.content-container {
-margin: 20px 0px 0px 0px;
+box-shadow: 15px 15px 15px rgba(9, 16, 29, 0.5);
+background: rgba(19, 44, 67, 0.4);
 }
 hr.line {
 width: auto;
 color: rgba(88, 96, 100, 0.50);
 }
 div.navigation {
-margin: 30px 0px 0px 0px;
+margin: 40px 0px 0px 0px;
 text-align: center;
 }
 form.form-label {
