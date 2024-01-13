@@ -1,9 +1,8 @@
-@media screen and (min-width: 1080px) {}
 #body-container {
 box-sizing: border-box;
 height: 825px;
 min-width: 1920px;
-padding: 30px 130px 30px 130px;
+padding: 30px 100px 30px 100px;
 background: rgba(29, 29, 41, 0.8);
 }
 div.categories {
@@ -11,7 +10,7 @@ display: inline-block;
 overflow-x: hidden;
 overflow-y: auto;
 height: 700px;
-width: 285px;
+width: 265px;
 padding: 25px;
 border-radius: 8px;
 box-shadow: 15px 15px 15px rgba(9, 16, 29, 0.5);
@@ -24,7 +23,7 @@ display: inline-block;
 overflow-x: hidden;
 overflow-y: auto;
 height: 700px;
-width: 1200px;
+width: 1260px;
 padding: 50px 50px 0px 50px;
 border-radius: 8px;
 box-shadow: 15px 15px 15px rgba(9, 16, 29, 0.5);
@@ -35,7 +34,7 @@ width: auto;
 color: rgba(88, 96, 100, 0.50);
 }
 div.navigation {
-margin: 40px 0px 0px 0px;
+margin: 35px 0px 0px 0px;
 text-align: center;
 }
 form.form-label {
