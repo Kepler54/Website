@@ -1,7 +1,7 @@
 from .models import Basis
 from django.http import HttpResponseNotFound
 from django.shortcuts import get_object_or_404
-from django.views.generic import TemplateView, ListView, DetailView, FormView
+from django.views.generic import TemplateView, ListView, DetailView
 
 
 def get_menu():

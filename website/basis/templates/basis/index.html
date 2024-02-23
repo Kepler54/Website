@@ -27,7 +27,9 @@
 <!-- Ссылка на пост -->
 <p align="right">
     <a href='{{p.get_absolute_url}}'>{% include 'basis/inclusions/eyeglasses_icon.html' %}
+        {% if not forloop.last %}
         <hr class="line">
+        {% endif %}
     </a>
 </p>
 {% endfor %}
