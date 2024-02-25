@@ -1,14 +1,16 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="about-block">
-    <a href='mailto:keplerpocket@proton.me' target="_blank">
-        {% include 'basis/inclusions/email_icon.html' %}
-    </a>
-</div>
-<div class="about-text">
-    <a href='mailto:keplerpocket@proton.me' target="_blank">
-        Электронная почта
-    </a>
-</div>
+<h1>{{post.post_title}}</h1><br>
+<form method="POST">
+    {% csrf_token %}
+    <div class="error-form">{{form.non_field_errors}}</div>
+    {% for f in form %}
+    <p><label class="label-form" for="{{f.id_for_label}}">{{f.label}}:</label>{{f}}</p>
+    <div class="error-form">{{f.errors}}</div>
+    {% endfor %}
+    <input class="button" type="submit" value="Отправить">
+</form>
+<br>
+<br><p>Поддержать с помощью биткойна: bc1qewfgtrrg2gqgtvzl5d2pr9pte685pp5n3g6scy</p><br>
 {% endblock %}
