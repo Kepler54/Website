@@ -1,7 +1,8 @@
 from .models import Basis
 from django.http import HttpResponseNotFound
-from django.shortcuts import get_object_or_404
-from django.views.generic import TemplateView, ListView, DetailView
+from django.shortcuts import render, get_object_or_404, redirect
+from django.views.generic import TemplateView, ListView, DetailView, FormView
+from basis.forms import ContactForm
 
 
 def get_menu():
@@ -13,10 +14,7 @@ class HomePage(ListView):
     template_name = 'basis/index.html'
     context_object_name = 'all_posts'
     paginate_by = 3
-    extra_context = {
-        'title': 'Космос',
-        'main_title': 'Солнечная система'
-    }
+    extra_context = {'title': 'Космос', 'main_title': 'Солнечная система'}
 
     def get_queryset(self):
         return Basis.published.all().select_related('category')
@@ -55,35 +53,33 @@ class PostPage(DetailView):
 
 class AboutPage(TemplateView):
     template_name = 'basis/about.html'
-    extra_context = {
-        'title': 'О сайте',
-        'main_title': 'Информация о сайте'
-    }
+    extra_context = {'title': 'О сайте', 'main_title': 'Информация о сайте'}
 
 
-class ContactPage(TemplateView):
+class ContactPage(FormView):
+    form_class = ContactForm
     template_name = 'basis/contact.html'
-    extra_context = {
-        'title': 'Связаться с нами',
-        'main_title': 'Связаться с нами'
-    }
+    extra_context = {'title': 'Связаться с нами', 'main_title': 'Связаться с нами'}
+
+    def form_valid(self, form):
+        return redirect('email_was_sent')
 
 
 class TermsPage(TemplateView):
     template_name = 'basis/terms.html'
-    extra_context = {
-        'title': 'Пользовательское соглашение',
-        'main_title': 'Соглашение...'
-    }
+    extra_context = {'title': 'Пользовательское соглашение', 'main_title': 'Соглашение...'}
 
 
 class PrivacyPage(TemplateView):
     template_name = 'basis/privacy.html'
-    extra_context = {
-        'title': 'Политика конфиденциальности',
-        'main_title': 'Политика...'
-    }
+    extra_context = {'title': 'Политика конфиденциальности', 'main_title': 'Политика...'}
+
+
+def email_was_sent(request):
+    extra_context = {'title': 'Сообщение отправлено', 'main_title': 'Получилось!'}
+    return render(request, 'basis/email_was_sent.html', context=extra_context)
 
 
 def page_not_found(request, exception):
-    return HttpResponseNotFound("<h1>Страница не найдена! Ошибка 404.</h1>")
+    extra_context = {'title': 'Ошибка 404', 'main_title': 'Страница не найдена!'}
+    return HttpResponseNotFound(render(request, 'basis/error_404.html'), content=extra_context)
