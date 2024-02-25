@@ -19,18 +19,21 @@ from django.contrib import admin
 from django.urls import path, include
 from basis.views import page_not_found
 from django.conf.urls.static import static
+from django.conf.urls.i18n import i18n_patterns
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', include('basis.urls')),
-    path('users/', include('users.urls', namespace='users')),
-    path("__debug__/", include("debug_toolbar.urls"))
-]
+                  path('admin/', admin.site.urls),
+                  path('captcha/', include('captcha.urls')),
+                  path("__debug__/", include("debug_toolbar.urls")),
+              ] + i18n_patterns(
+    path('i18n/', include('django.conf.urls.i18n')), path('', include('basis.urls')),
+    path('users/', include('users.urls', namespace='users')), prefix_default_language=False
+)
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 handler404 = page_not_found
 
-admin.site.site_header = "Админка"
-admin.site.index_title = "Название сайта"
+admin.site.site_header = "Панель администрирования"
+admin.site.index_title = "Веб-сайт"
