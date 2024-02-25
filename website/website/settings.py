@@ -9,8 +9,10 @@ https://docs.djangoproject.com/en/5.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
+import os.path
 from os import getenv
 from pathlib import Path
+from django.utils.translation import gettext_lazy as _
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -30,6 +32,7 @@ INTERNAL_IPS = ["127.0.0.1"]
 # Application definition
 
 INSTALLED_APPS = [
+    'modeltranslation',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -37,14 +40,16 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_extensions',
+    'debug_toolbar',
+    'captcha',
     'basis.apps.BasisConfig',
     'users.apps.UsersConfig',
-    'debug_toolbar',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -105,7 +110,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
 
-LANGUAGE_CODE = 'ru-RU'
+LANGUAGE_CODE = 'ru'
 
 TIME_ZONE = 'UTC'
 
@@ -113,14 +118,22 @@ USE_I18N = True
 
 USE_TZ = True
 
+LANGUAGES = [
+    ('ru', _('Russia')),
+    ('en', _('English')),
+]
+
+MODELTRANSLATION_DEFAULT_LANGUAGE = 'ru'
+LOCALE_PATHS = [BASE_DIR / 'locale', ]
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 STATIC_URL = 'static/'
-STATIC_ROOT = 'static'
+STATIC_ROOT = BASE_DIR / 'static'
 
-MEDIA_ROOT = BASE_DIR / 'media'
 MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
@@ -132,6 +145,21 @@ LOGOUT_REDIRECT_URL = 'home'
 LOGIN_URL = 'users:login'
 
 AUTHENTICATION_BACKENDS = ['django.contrib.auth.backends.ModelBackend', 'users.authentication.EmailAuthBackend']
+AUTH_USER_MODEL = 'users.User'
 
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
-AUTH_USER_MODEL = 'users.User'
+EMAIL_HOST = ""
+EMAIL_PORT = 587
+EMAIL_HOST_USER = ""
+EMAIL_HOST_PASSWORD = ""
+EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+SERVER_EMAIL = EMAIL_HOST_USER
+EMAIL_ADMIN = EMAIL_HOST_USER
+
+CACHES = {
+    "default": {
+        "BACKEND": "django.core.cache.backends.filebased.FileBasedCache",
+        "LOCATION": os.path.join(BASE_DIR, "site_cache"),
+    }
+}
