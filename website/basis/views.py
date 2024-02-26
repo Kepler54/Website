@@ -1,4 +1,5 @@
 from .models import Basis
+from django.core.mail import send_mail
 from django.http import HttpResponseNotFound
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import TemplateView, ListView, DetailView, FormView
@@ -62,6 +63,11 @@ class ContactPage(FormView):
     extra_context = {'title': 'Связаться с нами', 'main_title': 'Связаться с нами'}
 
     def form_valid(self, form):
+        name = form.cleaned_data['name']
+        email = form.cleaned_data['email']
+        message = form.cleaned_data['message']
+        data = f"От: {email}\n{message}"
+        send_mail(name, data, '', [''])
         return redirect('email_was_sent')
 
 
