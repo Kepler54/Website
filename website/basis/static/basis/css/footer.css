@@ -5,3 +5,7 @@ padding: 395px 0px 5px 0px;
 background: #000000 url('../images/sol.png') no-repeat center;
 text-align: center;
 }
+div.language {
+padding: 50px 0px 0px 100px;
+display: inline-block;
+}
